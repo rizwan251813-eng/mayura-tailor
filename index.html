@@ -1,1 +1,917 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="description" content="Mayura Tailor - Premium tailoring in Hirgana, Mururu, Udupi. Custom stitching for gents & ladies with perfect fit."/>
+<title>Mayura Tailor | Perfect Fit. Premium Stitching. Timeless Style.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      fontFamily: { playfair: ['"Playfair Display"','serif'], inter: ['Inter','sans-serif'] },
+      colors: { gold: { 300:'#f0dfa0', 400:'#dfc06a', 500:'#c9a84c', 600:'#b8943c' } }
+    }
+  }
+}
+</script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;overflow-x:hidden}
+body{background:#0a0a0a;color:#fff;font-family:'Inter',sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:#0a0a0a}::-webkit-scrollbar-thumb{background:#c9a84c;border-radius:3px}
+::selection{background:rgba(201,168,76,.25)}
 
+/* Gold text */
+.gold-text{background:linear-gradient(135deg,#c9a84c 0%,#f0dfa0 50%,#c9a84c 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.gold-shimmer{background:linear-gradient(135deg,#c9a84c 0%,#f0dfa0 40%,#c9a84c 80%);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:shimmer 3s linear infinite}
+@keyframes shimmer{0%{background-position:-200% center}100%{background-position:200% center}}
+
+/* Glass card */
+.glass{background:rgba(255,255,255,.03);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(201,168,76,.15);box-shadow:0 8px 32px rgba(0,0,0,.4)}
+.glass:hover{background:rgba(255,255,255,.06);border-color:rgba(201,168,76,.35);box-shadow:0 12px 48px rgba(0,0,0,.5),0 0 30px rgba(201,168,76,.08);transform:translateY(-4px)}
+.glass{transition:all .4s cubic-bezier(.25,.46,.45,.94)}
+
+/* Buttons */
+.btn-gold{background:linear-gradient(135deg,#c9a84c,#dfc06a);color:#0a0a0a;font-weight:700;letter-spacing:.08em;border:none;cursor:pointer;position:relative;overflow:hidden;transition:all .3s ease}
+.btn-gold:hover{box-shadow:0 8px 30px rgba(201,168,76,.5);transform:translateY(-2px)}
+.btn-outline{background:transparent;border:1.5px solid #c9a84c;color:#c9a84c;font-weight:600;letter-spacing:.08em;cursor:pointer;transition:all .3s ease}
+.btn-outline:hover{background:rgba(201,168,76,.1);box-shadow:0 0 20px rgba(201,168,76,.2);transform:translateY(-2px)}
+
+/* Nav link */
+.nav-link{position:relative;padding-bottom:4px}
+.nav-link::after{content:'';position:absolute;bottom:0;left:0;width:0;height:1px;background:#c9a84c;transition:width .3s ease}
+.nav-link:hover::after,.nav-link.active::after{width:100%}
+
+/* Loading */
+#loader{position:fixed;inset:0;z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;background:radial-gradient(ellipse at center,#141414 0%,#0a0a0a 100%);transition:opacity .8s ease,transform .8s ease}
+#loader.hidden{opacity:0;pointer-events:none;transform:scale(1.05)}
+.loader-bar{height:1px;background:linear-gradient(90deg,#c9a84c,#f0dfa0,#c9a84c);box-shadow:0 0 10px rgba(201,168,76,.6);width:0%;transition:width 2.5s ease}
+
+/* Animations */
+@keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+@keyframes spin-slow{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+@keyframes pulse-dot{0%,100%{box-shadow:0 0 0 0 rgba(37,211,102,.4)}70%{box-shadow:0 0 0 10px rgba(37,211,102,0)}}
+@keyframes wa-pulse{0%{box-shadow:0 0 0 0 rgba(37,211,102,.4)}70%{box-shadow:0 0 0 20px rgba(37,211,102,0)}100%{box-shadow:0 0 0 0 rgba(37,211,102,0)}}
+
+.animate-fadeup{animation:fadeUp .8s ease forwards}
+.animate-float{animation:float 3s ease-in-out infinite}
+.anim-hidden{opacity:0;transform:translateY(30px);transition:opacity .7s ease,transform .7s ease}
+.anim-visible{opacity:1!important;transform:none!important}
+
+/* Parallax hero bg */
+#hero-bg{position:absolute;inset:0;background-image:url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=1920&q=90');background-size:cover;background-position:center center;height:120%;top:-10%;will-change:transform}
+
+/* Section */
+section{position:relative;overflow:hidden}
+
+/* Gallery grid */
+.gallery-grid{display:grid;grid-template-columns:repeat(3,1fr);grid-auto-rows:200px;gap:12px}
+.gallery-item{position:relative;overflow:hidden;border-radius:12px;border:1px solid rgba(201,168,76,.1);cursor:pointer}
+.gallery-item img{width:100%;height:100%;object-fit:cover;transition:transform .6s cubic-bezier(.25,.46,.45,.94)}
+.gallery-item:hover img{transform:scale(1.1)}
+.gallery-item .overlay{position:absolute;inset:0;background:rgba(0,0,0,0);transition:background .4s ease;display:flex;align-items:center;justify-content:center}
+.gallery-item:hover .overlay{background:rgba(0,0,0,.55)}
+.gallery-item .overlay-text{opacity:0;transition:opacity .4s ease;color:#fff;font-family:'Playfair Display',serif;font-size:14px;text-align:center}
+.gallery-item:hover .overlay-text{opacity:1}
+.gallery-item.tall{grid-row:span 2}
+.gallery-item.wide{grid-column:span 2}
+
+/* Divider */
+.divider-gold{width:60px;height:2px;background:linear-gradient(90deg,transparent,#c9a84c,transparent);margin:0 auto}
+
+/* Mobile menu */
+#mobile-menu{position:fixed;inset:0;z-index:48;background:rgba(10,10,10,.97);backdrop-filter:blur(30px);display:none;flex-direction:column;align-items:center;justify-content:center;gap:2rem}
+#mobile-menu.open{display:flex}
+
+/* Map dark filter */
+.map-frame{filter:grayscale(.8) invert(.9) contrast(.9) brightness(.45)}
+
+/* Lightbox */
+#lightbox{position:fixed;inset:0;z-index:100;background:rgba(0,0,0,.95);display:none;align-items:center;justify-content:center;padding:1rem}
+#lightbox.open{display:flex}
+#lightbox img{max-width:100%;max-height:85vh;object-fit:contain;border-radius:12px;border:1px solid rgba(201,168,76,.2)}
+
+/* WA button */
+#wa-btn{position:fixed;bottom:1.5rem;right:1.5rem;z-index:50;width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,#25D366,#128C7E);display:flex;align-items:center;justify-content:center;cursor:pointer;border:none;animation:wa-pulse 2s infinite;transition:transform .3s ease;opacity:0;transform:scale(0);transition:opacity .4s,transform .4s}
+#wa-btn.show{opacity:1;transform:scale(1)}
+#wa-btn:hover{transform:scale(1.1)!important}
+
+/* WA tooltip */
+#wa-tooltip{position:fixed;bottom:5rem;right:1.5rem;z-index:50;max-width:210px;background:rgba(20,20,20,.98);border:1px solid rgba(201,168,76,.2);backdrop-filter:blur(20px);border-radius:16px 16px 4px 16px;padding:1rem;display:none;flex-direction:column;gap:.5rem}
+#wa-tooltip.show{display:flex}
+
+/* Star */
+.star{color:#c9a84c}
+
+/* Navbar scroll */
+#navbar{transition:all .4s ease}
+#navbar.scrolled{background:rgba(0,0,0,.92)!important;backdrop-filter:blur(20px);border-bottom:1px solid rgba(201,168,76,.1);padding-top:.75rem;padding-bottom:.75rem}
+
+/* Reviews card no-hover on desktop */
+@media(min-width:1024px){.glass.review-card:hover{transform:translateY(-4px)}}
+
+@media(max-width:768px){
+  .gallery-grid{grid-template-columns:repeat(2,1fr);grid-auto-rows:160px}
+  .gallery-item.tall{grid-row:span 1}
+  .gallery-item.wide{grid-column:span 2}
+}
+@media(max-width:480px){
+  .gallery-grid{grid-template-columns:repeat(1,1fr)}
+  .gallery-item.wide{grid-column:span 1}
+}
+</style>
+</head>
+<body>
+
+<!-- ══════════ LOADING SCREEN ══════════ -->
+<div id="loader">
+  <div style="display:flex;flex-direction:column;align-items:center;gap:2rem;position:relative;z-index:10">
+    <!-- Decorative rings -->
+    <div style="position:absolute;width:200px;height:200px;border-radius:50%;border:1px solid rgba(201,168,76,.06);top:50%;left:50%;transform:translate(-50%,-50%);animation:spin-slow 12s linear infinite;pointer-events:none"></div>
+    <div style="position:absolute;width:140px;height:140px;border-radius:50%;border:1px solid rgba(201,168,76,.08);top:50%;left:50%;transform:translate(-50%,-50%)"></div>
+
+    <!-- Logo SVG -->
+    <div class="animate-float">
+      <svg width="80" height="80" viewBox="0 0 100 100" fill="none">
+        <circle cx="50" cy="50" r="48" stroke="url(#g1)" stroke-width="1.5" fill="rgba(201,168,76,.04)"/>
+        <circle cx="50" cy="50" r="36" stroke="url(#g1)" stroke-width=".5" fill="none" opacity=".3"/>
+        <path d="M50 18 L54 44 L50 50 L46 44 Z" fill="url(#g1)"/>
+        <ellipse cx="50" cy="18" rx="4" ry="5" fill="url(#g1)"/>
+        <path d="M48 21 L52 21" stroke="#0a0a0a" stroke-width="2"/>
+        <path d="M50 50 Q67 57 61 73 Q55 83 50 77" stroke="url(#g1)" stroke-width="1.8" fill="none"/>
+        <text x="50" y="72" font-family="serif" font-size="0" fill="url(#g1)" text-anchor="middle"></text>
+        <defs>
+          <linearGradient id="g1" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#c9a84c"/>
+            <stop offset="50%" stop-color="#f0dfa0"/>
+            <stop offset="100%" stop-color="#c9a84c"/>
+          </linearGradient>
+        </defs>
+      </svg>
+    </div>
+
+    <!-- Brand name -->
+    <div style="text-align:center">
+      <h1 class="gold-shimmer" style="font-family:'Playfair Display',serif;font-size:2.2rem;font-weight:700;line-height:1;margin-bottom:.3rem">Mayura Tailor</h1>
+      <p style="font-size:.65rem;letter-spacing:.4em;color:#555;text-transform:uppercase;font-family:'Inter',sans-serif">Premium Stitching · Udupi</p>
+    </div>
+
+    <!-- Progress bar -->
+    <div style="width:220px">
+      <div style="height:1px;background:#1e1e1e;border-radius:999px;overflow:hidden">
+        <div class="loader-bar" id="loader-bar"></div>
+      </div>
+      <p id="loader-pct" style="text-align:center;font-size:.65rem;color:#444;margin-top:.6rem;font-family:'Inter',sans-serif;letter-spacing:.2em">0%</p>
+    </div>
+
+    <p style="font-size:.6rem;letter-spacing:.3em;color:#333;text-transform:uppercase;font-family:'Inter',sans-serif">Perfect Fit · Timeless Style</p>
+  </div>
+</div>
+
+<!-- ══════════ NAVBAR ══════════ -->
+<nav id="navbar" style="position:fixed;top:0;left:0;right:0;z-index:49;padding:1.1rem 0;background:transparent">
+  <div style="max-width:1280px;margin:0 auto;padding:0 1.5rem;display:flex;align-items:center;justify-content:space-between">
+    <!-- Logo -->
+    <a href="#home" onclick="scrollTo_('#home');return false" style="display:flex;align-items:center;gap:.75rem;text-decoration:none">
+      <svg width="36" height="36" viewBox="0 0 100 100" fill="none">
+        <circle cx="50" cy="50" r="48" stroke="url(#navG)" stroke-width="2" fill="rgba(201,168,76,.04)"/>
+        <path d="M50 18 L54 44 L50 50 L46 44 Z" fill="url(#navG)"/>
+        <ellipse cx="50" cy="18" rx="4" ry="5" fill="url(#navG)"/>
+        <path d="M48 21 L52 21" stroke="#0a0a0a" stroke-width="2"/>
+        <path d="M50 50 Q65 56 60 71 Q55 81 50 75" stroke="url(#navG)" stroke-width="2" fill="none"/>
+        <defs><linearGradient id="navG" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#c9a84c"/><stop offset="50%" stop-color="#f0dfa0"/><stop offset="100%" stop-color="#c9a84c"/></linearGradient></defs>
+      </svg>
+      <div>
+        <span class="gold-text" style="font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;display:block;line-height:1.1">Mayura</span>
+        <span style="font-size:.55rem;letter-spacing:.35em;color:#666;text-transform:uppercase;font-family:'Inter',sans-serif">Tailor</span>
+      </div>
+    </a>
+
+    <!-- Desktop Links -->
+    <div style="display:flex;gap:2rem;align-items:center" class="hidden-mobile">
+      <a href="#home" onclick="scrollTo_('#home');return false" class="nav-link" style="color:#ccc;text-decoration:none;font-size:.85rem;font-family:'Inter',sans-serif;font-weight:500">Home</a>
+      <a href="#about" onclick="scrollTo_('#about');return false" class="nav-link" style="color:#ccc;text-decoration:none;font-size:.85rem;font-family:'Inter',sans-serif;font-weight:500">About</a>
+      <a href="#services" onclick="scrollTo_('#services');return false" class="nav-link" style="color:#ccc;text-decoration:none;font-size:.85rem;font-family:'Inter',sans-serif;font-weight:500">Services</a>
+      <a href="#gallery" onclick="scrollTo_('#gallery');return false" class="nav-link" style="color:#ccc;text-decoration:none;font-size:.85rem;font-family:'Inter',sans-serif;font-weight:500">Gallery</a>
+      <a href="#reviews" onclick="scrollTo_('#reviews');return false" class="nav-link" style="color:#ccc;text-decoration:none;font-size:.85rem;font-family:'Inter',sans-serif;font-weight:500">Reviews</a>
+      <a href="#contact" onclick="scrollTo_('#contact');return false" class="nav-link" style="color:#ccc;text-decoration:none;font-size:.85rem;font-family:'Inter',sans-serif;font-weight:500">Contact</a>
+    </div>
+
+    <!-- Book now + hamburger -->
+    <div style="display:flex;align-items:center;gap:1rem">
+      <button onclick="scrollTo_('#contact')" class="btn-gold hidden-mobile" style="padding:.6rem 1.4rem;border-radius:999px;font-size:.8rem;font-family:'Inter',sans-serif">Book Now</button>
+      <button id="hamburger" onclick="toggleMenu()" style="display:none;width:40px;height:40px;border-radius:50%;border:1px solid rgba(201,168,76,.25);background:transparent;color:#c9a84c;cursor:pointer;align-items:center;justify-content:center;font-size:1.2rem">☰</button>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div id="mobile-menu">
+  <button onclick="toggleMenu()" style="position:absolute;top:1.5rem;right:1.5rem;background:transparent;border:1px solid rgba(201,168,76,.2);border-radius:50%;width:40px;height:40px;color:#c9a84c;cursor:pointer;font-size:1.1rem">✕</button>
+  <svg width="50" height="50" viewBox="0 0 100 100" fill="none" style="margin-bottom:1rem">
+    <circle cx="50" cy="50" r="48" stroke="url(#mmG)" stroke-width="2" fill="rgba(201,168,76,.04)"/>
+    <path d="M50 18 L54 44 L50 50 L46 44 Z" fill="url(#mmG)"/>
+    <ellipse cx="50" cy="18" rx="4" ry="5" fill="url(#mmG)"/>
+    <path d="M48 21 L52 21" stroke="#0a0a0a" stroke-width="2"/>
+    <path d="M50 50 Q65 56 60 71 Q55 81 50 75" stroke="url(#mmG)" stroke-width="2" fill="none"/>
+    <defs><linearGradient id="mmG" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#c9a84c"/><stop offset="50%" stop-color="#f0dfa0"/><stop offset="100%" stop-color="#c9a84c"/></linearGradient></defs>
+  </svg>
+  <a href="#home" onclick="scrollTo_('#home');toggleMenu();return false" style="font-family:'Playfair Display',serif;font-size:2rem;color:#eee;text-decoration:none">Home</a>
+  <a href="#about" onclick="scrollTo_('#about');toggleMenu();return false" style="font-family:'Playfair Display',serif;font-size:2rem;color:#eee;text-decoration:none">About</a>
+  <a href="#services" onclick="scrollTo_('#services');toggleMenu();return false" style="font-family:'Playfair Display',serif;font-size:2rem;color:#eee;text-decoration:none">Services</a>
+  <a href="#gallery" onclick="scrollTo_('#gallery');toggleMenu();return false" style="font-family:'Playfair Display',serif;font-size:2rem;color:#eee;text-decoration:none">Gallery</a>
+  <a href="#reviews" onclick="scrollTo_('#reviews');toggleMenu();return false" style="font-family:'Playfair Display',serif;font-size:2rem;color:#eee;text-decoration:none">Reviews</a>
+  <a href="#contact" onclick="scrollTo_('#contact');toggleMenu();return false" style="font-family:'Playfair Display',serif;font-size:2rem;color:#eee;text-decoration:none">Contact</a>
+  <button onclick="scrollTo_('#contact');toggleMenu()" class="btn-gold" style="padding:.8rem 2.5rem;border-radius:999px;font-size:.85rem;font-family:'Inter',sans-serif;margin-top:.5rem">Book Now</button>
+</div>
+
+<!-- ══════════ HERO ══════════ -->
+<section id="home" style="min-height:100vh;display:flex;align-items:center;justify-content:center;position:relative">
+  <!-- Parallax BG -->
+  <div id="hero-bg"></div>
+  <!-- Overlay -->
+  <div style="position:absolute;inset:0;z-index:1;background:linear-gradient(135deg,rgba(5,5,5,.72) 0%,rgba(10,8,4,.45) 50%,rgba(5,5,5,.82) 100%)"></div>
+  <div style="position:absolute;inset:0;z-index:1;background:linear-gradient(to bottom,rgba(5,5,5,.3) 0%,rgba(5,5,5,.15) 30%,rgba(5,5,5,.7) 78%,rgba(5,5,5,1) 100%)"></div>
+
+  <!-- Corner decorations -->
+  <div style="position:absolute;top:6rem;left:1.5rem;z-index:2;width:40px;height:40px;border-top:1.5px solid rgba(201,168,76,.4);border-left:1.5px solid rgba(201,168,76,.4)"></div>
+  <div style="position:absolute;top:6rem;right:1.5rem;z-index:2;width:40px;height:40px;border-top:1.5px solid rgba(201,168,76,.4);border-right:1.5px solid rgba(201,168,76,.4)"></div>
+  <div style="position:absolute;bottom:5rem;left:1.5rem;z-index:2;width:40px;height:40px;border-bottom:1.5px solid rgba(201,168,76,.4);border-left:1.5px solid rgba(201,168,76,.4)"></div>
+  <div style="position:absolute;bottom:5rem;right:1.5rem;z-index:2;width:40px;height:40px;border-bottom:1.5px solid rgba(201,168,76,.4);border-right:1.5px solid rgba(201,168,76,.4)"></div>
+
+  <!-- Content -->
+  <div style="position:relative;z-index:2;max-width:900px;margin:0 auto;padding:0 1.5rem;text-align:center">
+    <!-- Badge -->
+    <div class="anim-hidden" style="display:inline-flex;align-items:center;gap:.5rem;padding:.45rem 1rem;border:1px solid rgba(201,168,76,.3);background:rgba(201,168,76,.05);border-radius:999px;margin-bottom:2rem;backdrop-filter:blur(10px)">
+      <span style="font-size:.65rem;letter-spacing:.3em;color:#c9a84c;text-transform:uppercase;font-family:'Inter',sans-serif">✂ Premium Tailoring · Udupi, Karnataka</span>
+    </div>
+
+    <!-- Heading -->
+    <h1 class="anim-hidden" style="font-family:'Playfair Display',serif;font-weight:800;line-height:1.15;margin-bottom:1.2rem;font-size:clamp(2.6rem,8vw,5.5rem);animation-delay:.1s">
+      <span style="color:#fff">Crafted with</span><br>
+      <span class="gold-text">Precision &amp;</span><br>
+      <span style="color:#fff">Passion</span>
+    </h1>
+
+    <!-- Animated tagline -->
+    <div class="anim-hidden" style="height:2.5rem;overflow:hidden;margin-bottom:1.5rem;animation-delay:.2s">
+      <div id="tagline-wrap" style="font-family:'Playfair Display',serif;font-size:clamp(1rem,3vw,1.5rem);color:#dfc06a;font-style:italic;transition:transform .5s ease,opacity .5s ease"></div>
+    </div>
+
+    <!-- Description -->
+    <p class="anim-hidden" style="color:#aaa;font-size:1rem;max-width:600px;margin:0 auto 2.5rem;font-family:'Inter',sans-serif;font-weight:300;line-height:1.8;animation-delay:.3s">
+      From elegant ethnic wear to sharp formal attire — every stitch at Mayura Tailor
+      tells a story of perfection, quality, and timeless style.
+    </p>
+
+    <!-- CTAs -->
+    <div class="anim-hidden" style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;animation-delay:.4s">
+      <button onclick="scrollTo_('#contact')" class="btn-gold" style="padding:.9rem 2rem;border-radius:999px;font-size:.85rem;font-family:'Inter',sans-serif">Book a Consultation</button>
+      <button onclick="scrollTo_('#services')" class="btn-outline" style="padding:.9rem 2rem;border-radius:999px;font-size:.85rem;font-family:'Inter',sans-serif">Explore Services</button>
+    </div>
+
+    <!-- Stats -->
+    <div class="anim-hidden" style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;max-width:380px;margin:3.5rem auto 0;animation-delay:.5s">
+      <div style="text-align:center">
+        <div class="gold-text" style="font-family:'Playfair Display',serif;font-size:2rem;font-weight:700">10+</div>
+        <div style="color:#555;font-size:.7rem;font-family:'Inter',sans-serif;margin-top:.2rem">Years of Craft</div>
+      </div>
+      <div style="text-align:center">
+        <div class="gold-text" style="font-family:'Playfair Display',serif;font-size:2rem;font-weight:700">500+</div>
+        <div style="color:#555;font-size:.7rem;font-family:'Inter',sans-serif;margin-top:.2rem">Happy Clients</div>
+      </div>
+      <div style="text-align:center">
+        <div class="gold-text" style="font-family:'Playfair Display',serif;font-size:2rem;font-weight:700">100%</div>
+        <div style="color:#555;font-size:.7rem;font-family:'Inter',sans-serif;margin-top:.2rem">Perfect Fit</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scroll indicator -->
+  <div onclick="scrollTo_('#about')" style="position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);z-index:2;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:.4rem;color:rgba(201,168,76,.5)">
+    <span style="font-size:.55rem;letter-spacing:.3em;text-transform:uppercase;font-family:'Inter',sans-serif">Scroll</span>
+    <div id="scroll-arrow" style="font-size:1rem;animation:float 1.5s ease-in-out infinite">▾</div>
+  </div>
+</section>
+
+<!-- ══════════ ABOUT ══════════ -->
+<section id="about" style="padding:6rem 0;background:linear-gradient(180deg,#0a0a0a 0%,#101010 100%)">
+  <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 70% 50%,rgba(201,168,76,.04) 0%,transparent 60%);pointer-events:none"></div>
+  <div style="max-width:1280px;margin:0 auto;padding:0 1.5rem">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center" class="about-grid">
+
+      <!-- Image side -->
+      <div class="anim-hidden" style="position:relative">
+        <div style="border-radius:1rem;overflow:hidden;border:1px solid rgba(201,168,76,.15);box-shadow:0 20px 60px rgba(0,0,0,.5)">
+          <img src="https://images.unsplash.com/photo-1556905055-8f358a7a47b2?auto=format&fit=crop&w=800&q=80" alt="Tailor at work" style="width:100%;height:420px;object-fit:cover;display:block"/>
+          <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.35),transparent)"></div>
+        </div>
+        <!-- Floating card -->
+        <div class="glass" style="position:absolute;bottom:-1.5rem;right:-1.5rem;padding:1.2rem 1.5rem;border-radius:1rem;min-width:150px">
+          <div class="gold-text" style="font-family:'Playfair Display',serif;font-size:2.5rem;font-weight:700;line-height:1">10+</div>
+          <div style="color:#888;font-size:.7rem;font-family:'Inter',sans-serif;margin-top:.2rem">Years of Premium<br>Tailoring Experience</div>
+        </div>
+        <!-- Small image -->
+        <div style="position:absolute;top:-1rem;left:-1rem;width:100px;height:100px;border-radius:.75rem;overflow:hidden;border:2px solid rgba(201,168,76,.2);box-shadow:0 8px 20px rgba(0,0,0,.4)">
+          <img src="https://images.unsplash.com/photo-1467453678174-768ec283a940?auto=format&fit=crop&w=300&q=80" alt="Sewing" style="width:100%;height:100%;object-fit:cover"/>
+        </div>
+      </div>
+
+      <!-- Text side -->
+      <div class="anim-hidden" style="animation-delay:.15s">
+        <p style="font-size:.7rem;letter-spacing:.28em;text-transform:uppercase;color:#c9a84c;font-family:'Inter',sans-serif;font-weight:500;margin-bottom:1rem">Our Story</p>
+        <h2 style="font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3rem);font-weight:700;line-height:1.2;margin-bottom:1rem">
+          Tailoring<br><span class="gold-text">Excellence</span><br>Since Years
+        </h2>
+        <div style="width:50px;height:1.5px;background:linear-gradient(90deg,#c9a84c,transparent);margin-bottom:1.5rem"></div>
+        <p style="color:#888;font-family:'Inter',sans-serif;line-height:1.9;margin-bottom:1rem;font-size:.9rem">
+          <span style="color:#c9a84c;font-weight:500">Mayura Tailor</span> is a trusted name in premium tailoring, proudly serving the community of Hirgana, Mururu, Udupi. We combine traditional craftsmanship with modern techniques to deliver garments that fit perfectly and last beautifully.
+        </p>
+        <p style="color:#888;font-family:'Inter',sans-serif;line-height:1.9;margin-bottom:2rem;font-size:.9rem">
+          Whether you need an elegant blouse, a sharp formal shirt, or a custom ethnic outfit — we bring precision and passion to every stitch. Our expert tailors ensure your clothes feel as good as they look.
+        </p>
+
+        <!-- Feature grid -->
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:2rem">
+          <div style="display:flex;gap:.75rem;align-items:flex-start">
+            <div style="width:36px;height:36px;border-radius:.6rem;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:.9rem">✂</div>
+            <div><div style="color:#fff;font-size:.8rem;font-family:'Inter',sans-serif;font-weight:600;margin-bottom:.2rem">Master Craftsmanship</div><div style="color:#666;font-size:.7rem;font-family:'Inter',sans-serif;line-height:1.5">Decades of expert stitching with precision</div></div>
+          </div>
+          <div style="display:flex;gap:.75rem;align-items:flex-start">
+            <div style="width:36px;height:36px;border-radius:.6rem;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:.9rem">⭐</div>
+            <div><div style="color:#fff;font-size:.8rem;font-family:'Inter',sans-serif;font-weight:600;margin-bottom:.2rem">Premium Quality</div><div style="color:#666;font-size:.7rem;font-family:'Inter',sans-serif;line-height:1.5">Finest materials and flawless finishing</div></div>
+          </div>
+          <div style="display:flex;gap:.75rem;align-items:flex-start">
+            <div style="width:36px;height:36px;border-radius:.6rem;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:.9rem">💛</div>
+            <div><div style="color:#fff;font-size:.8rem;font-family:'Inter',sans-serif;font-weight:600;margin-bottom:.2rem">Personalized Service</div><div style="color:#666;font-size:.7rem;font-family:'Inter',sans-serif;line-height:1.5">Tailored to your unique style preferences</div></div>
+          </div>
+          <div style="display:flex;gap:.75rem;align-items:flex-start">
+            <div style="width:36px;height:36px;border-radius:.6rem;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:.9rem">🏆</div>
+            <div><div style="color:#fff;font-size:.8rem;font-family:'Inter',sans-serif;font-weight:600;margin-bottom:.2rem">Trusted Experience</div><div style="color:#666;font-size:.7rem;font-family:'Inter',sans-serif;line-height:1.5">Serving Udupi community with dedication</div></div>
+          </div>
+        </div>
+
+        <button onclick="scrollTo_('#contact')" class="btn-gold" style="padding:.8rem 1.8rem;border-radius:999px;font-size:.8rem;font-family:'Inter',sans-serif">Get in Touch</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ SERVICES ══════════ -->
+<section id="services" style="padding:6rem 0;background:linear-gradient(180deg,#101010 0%,#0d0d0d 100%);position:relative">
+  <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 30% 50%,rgba(201,168,76,.04) 0%,transparent 60%);pointer-events:none"></div>
+  <!-- Background text -->
+  <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:'Playfair Display',serif;font-size:12vw;font-weight:800;color:rgba(255,255,255,.012);pointer-events:none;white-space:nowrap;z-index:0;user-select:none">SERVICES</div>
+
+  <div style="max-width:1280px;margin:0 auto;padding:0 1.5rem;position:relative;z-index:1">
+    <!-- Header -->
+    <div class="anim-hidden" style="text-align:center;margin-bottom:3.5rem">
+      <p style="font-size:.7rem;letter-spacing:.28em;text-transform:uppercase;color:#c9a84c;font-family:'Inter',sans-serif;font-weight:500;margin-bottom:.75rem">What We Offer</p>
+      <h2 style="font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,3rem);font-weight:700;color:#fff;margin-bottom:1rem">Our <span class="gold-text">Services</span></h2>
+      <div class="divider-gold" style="margin-bottom:1rem"></div>
+      <p style="color:#888;font-family:'Inter',sans-serif;max-width:500px;margin:0 auto;font-size:.85rem;line-height:1.8">From casual everyday wear to grand occasion outfits — mastery and precision in every stitch.</p>
+    </div>
+
+    <!-- Cards grid -->
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1.2rem">
+
+      <div class="glass anim-hidden" style="border-radius:1rem;padding:1.8rem;cursor:pointer" style="animation-delay:.05s">
+        <div style="width:48px;height:48px;border-radius:.8rem;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.2);display:flex;align-items:center;justify-content:center;font-size:1.3rem;margin-bottom:1.2rem">✂</div>
+        <h3 style="font-family:'Playfair Display',serif;font-size:1.1rem;color:#fff;margin-bottom:.6rem;font-weight:600">Custom Stitching</h3>
+        <p style="color:#777;font-size:.78rem;font-family:'Inter',sans-serif;line-height:1.7;margin-bottom:1rem">Bespoke garments crafted to your exact measurements and personal vision.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:.4rem">
+          <span style="font-size:.65rem;padding:.25rem .7rem;border-radius:999px;border:1px solid rgba(201,168,76,.2);color:rgba(201,168,76,.7);font-family:'Inter',sans-serif">Exact fit</span>
+          <span style="font-size:.65rem;padding:.25rem .7rem;border-radius:999px;border:1px solid rgba(201,168,76,.2);color:rgba(201,168,76,.7);font-family:'Inter',sans-serif">Premium</span>
+        </div>
+      </div>
+
+      <div class="glass anim-hidden" style="border-radius:1rem;padding:1.8rem;cursor:pointer;animation-delay:.08s">
+        <div style="width:48px;height:48px;border-radius:.8rem;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.2);display:flex;align-items:center;justify-content:center;font-size:1.3rem;margin-bottom:1.2rem">👔</div>
+        <h3 style="font-family:'Playfair Display',serif;font-size:1.1rem;color:#fff;margin-bottom:.6rem;font-weight:600">Gents Tailoring</h3>
+        <p style="color:#777;font-size:.78rem;font-family:'Inter',sans-serif;line-height:1.7;margin-bottom:1rem">Sharp, sophisticated menswear tailored to perfection — formal and casual.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:.4rem">
+          <span style="font-size:.65rem;padding:.25rem .7rem;border-radius:999px;border:1px solid rgba(201,168,76,.2);color:rgba(201,168,76,.7);font-family:'Inter',sans-serif">Formal</span>
+          <span style="font-size:.65rem;padding:.25rem .7rem;border-radius:999px;border:1px solid rgba(201,168,76,.2);color:rgba(201,168,76,.7);font-family:'Inter',sans-serif">Casual</span>
+        </div>
+      </div>
+
+      <div class="glass anim-hidden" style="border-radius:1rem;padding:1.8rem;cursor:pointer;animation-delay:.11s">
+        <div style="width:48px;height:48px;border-radius:.8rem;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.2);display:flex;align-items:center;justify-content:center;font-size:1.3rem;margin-bottom:1.2rem">👗</div>
+        <h3 style="font-family:'Playfair Display',serif;font-size:1.1rem;color:#fff;margin-bottom:.6rem;font-weight:600">Ladies Tailoring</h3>
+        <p style="color:#777;font-size:.78rem;font-family:'Inter',sans-serif;line-height:1.7;margin-bottom:1rem">Elegant ladies garments crafted with delicate attention to detail and finishing.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:.4rem">
+          <span style="font-size:.65rem;padding:.25rem .7rem;border-radius:999px;border:1px solid rgba(201,168,76,.2);color:rgba(201,168,76,.7);font-family:'Inter',sans-serif">Ethnic</span>
+          <span style="font-size:.65rem;padding:.25rem .7rem;border-radius:999px;border:1px solid rgba(201,168,76,.2);color:rgba(201,168,76,.7);font-family:'Inter',sans-serif">Western</span>
+        </div>
+      </div>
+
+      <div class="glass anim-hidden" style="border-radius:1rem;padding:1.8rem;cursor:pointer;animation-delay:.14s">
+        <div style="width:48px;height:48px;border-radius:.8rem;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.2);display:flex;align-items:center;justify-content:center;font-size:1.3rem;margin-bottom:1.2rem">🪡</div>
+        <h3 style="font-family:'Playfair Display',serif;font-size:1.1rem;color:#fff;margin-bottom:.6rem;font-weight:600">Blouse Stitching</h3>
+        <p style="color:#777;font-size:.78rem;font-family:'Inter',sans-serif;line-height:1.7;margin-bottom:1rem">Exquisitely stitched blouses — work blouses, designer blouses and more.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:.4rem">
+          <span style="font-size:.65rem;padding:.25rem .7rem;border-radius:999px;border:1px solid rgba(201,168,76,.2);color:rgba(201,168,76,.7);font-family:'Inter',sans-serif">Designer</span>
+          <span style="font-size:.65rem;padding:.25rem .7rem;border-radius:999px;border:1px solid rgba(201,168,76,.2);color:rgba(201,168,76,.7);font-family:'Inter',sans-serif">Perfect fit</span>
+        </div>
+      </div>
+
+      <div class="glass anim-hidden" style="border-radius:1rem;padding:1.8rem;cursor:pointer;animation-delay:.17s">
+        <div style="width:48px;height:48px;border-radius:.8rem;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.2);display:flex;align-items:center;justify-content:center;font-size:1.3rem;margin-bottom:1.2rem">🥻</div>
+        <h3 style="font-family:'Playfair Display',serif;font-size:1.1rem;color:#fff;margin-bottom:.6rem;font-weight:600">Chudidar Stitching</h3>
+        <p style="color:#777;font-size:.78rem;font-family:'Inter',sans-serif;line-height:1.7;margin-bottom:1rem">Beautiful chudidar sets stitched with precision — daily wear to festive collections.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:.4rem">
+          <span style="font-size:.65rem;padding:.25rem .7rem;border-radius:999px;border:1px solid rgba(201,168,76,.2);color:rgba(201,168,76,.7);font-family:'Inter',sans-serif">Salwar sets</span>
+          <span style="font-size:.65rem;padding:.25rem .7rem;border-radius:999px;border:1px solid rgba(201,168,76,.2);color:rgba(201,168,76,.7);font-family:'Inter',sans-serif">Festive</span>
+        </div>
+      </div>
+
+      <div class="glass anim-hidden" style="border-radius:1rem;padding:1.8rem;cursor:pointer;animation-delay:.2s">
+        <div style="width:48px;height:48px;border-radius:.8rem;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.2);display:flex;align-items:center;justify-content:center;font-size:1.3rem;margin-bottom:1.2rem">👕</div>
+        <h3 style="font-family:'Playfair Display',serif;font-size:1.1rem;color:#fff;margin-bottom:.6rem;font-weight:600">Shirt &amp; Pant</h3>
+        <p style="color:#777;font-size:.78rem;font-family:'Inter',sans-serif;line-height:1.7;margin-bottom:1rem">Perfectly tailored shirts and pants for a confident, professional look every day.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:.4rem">
+          <span style="font-size:.65rem;padding:.25rem .7rem;border-radius:999px;border:1px solid rgba(201,168,76,.2);color:rgba(201,168,76,.7);font-family:'Inter',sans-serif">Formal</span>
+          <span style="font-size:.65rem;padding:.25rem .7rem;border-radius:999px;border:1px solid rgba(201,168,76,.2);color:rgba(201,168,76,.7);font-family:'Inter',sans-serif">Custom</span>
+        </div>
+      </div>
+
+      <div class="glass anim-hidden" style="border-radius:1rem;padding:1.8rem;cursor:pointer;animation-delay:.23s">
+        <div style="width:48px;height:48px;border-radius:.8rem;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.2);display:flex;align-items:center;justify-content:center;font-size:1.3rem;margin-bottom:1.2rem">🎓</div>
+        <h3 style="font-family:'Playfair Display',serif;font-size:1.1rem;color:#fff;margin-bottom:.6rem;font-weight:600">Uniform Stitching</h3>
+        <p style="color:#777;font-size:.78rem;font-family:'Inter',sans-serif;line-height:1.7;margin-bottom:1rem">Professional uniforms for schools &amp; offices. Bulk orders accepted with quality guarantee.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:.4rem">
+          <span style="font-size:.65rem;padding:.25rem .7rem;border-radius:999px;border:1px solid rgba(201,168,76,.2);color:rgba(201,168,76,.7);font-family:'Inter',sans-serif">Bulk orders</span>
+          <span style="font-size:.65rem;padding:.25rem .7rem;border-radius:999px;border:1px solid rgba(201,168,76,.2);color:rgba(201,168,76,.7);font-family:'Inter',sans-serif">Schools</span>
+        </div>
+      </div>
+
+      <!-- CTA card -->
+      <div class="anim-hidden" style="border-radius:1rem;padding:1.8rem;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;background:linear-gradient(135deg,rgba(201,168,76,.1),rgba(201,168,76,.04));border:1px solid rgba(201,168,76,.2);animation-delay:.26s">
+        <div style="width:56px;height:56px;border-radius:50%;border:2px solid rgba(201,168,76,.4);display:flex;align-items:center;justify-content:center;font-size:1.5rem;margin-bottom:1.2rem;animation:float 3s ease-in-out infinite">✂</div>
+        <h3 class="gold-text" style="font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:600;margin-bottom:.6rem">Need Custom Work?</h3>
+        <p style="color:#777;font-size:.75rem;font-family:'Inter',sans-serif;line-height:1.7;margin-bottom:1.2rem">Have a unique design in mind? We take on special projects with full dedication.</p>
+        <button onclick="scrollTo_('#contact')" class="btn-gold" style="padding:.7rem 1.5rem;border-radius:999px;font-size:.75rem;font-family:'Inter',sans-serif;width:100%">Contact Us</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ GALLERY ══════════ -->
+<section id="gallery" style="padding:6rem 0;background:linear-gradient(180deg,#0d0d0d 0%,#0a0a0a 100%)">
+  <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 60% 50%,rgba(201,168,76,.03) 0%,transparent 60%);pointer-events:none"></div>
+  <div style="max-width:1280px;margin:0 auto;padding:0 1.5rem;position:relative;z-index:1">
+
+    <div class="anim-hidden" style="text-align:center;margin-bottom:3.5rem">
+      <p style="font-size:.7rem;letter-spacing:.28em;text-transform:uppercase;color:#c9a84c;font-family:'Inter',sans-serif;font-weight:500;margin-bottom:.75rem">Our Showcase</p>
+      <h2 style="font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,3rem);font-weight:700;color:#fff;margin-bottom:1rem">Our <span class="gold-text">Gallery</span></h2>
+      <div class="divider-gold" style="margin-bottom:1rem"></div>
+      <p style="color:#888;font-family:'Inter',sans-serif;max-width:500px;margin:0 auto;font-size:.85rem">A glimpse into our world of precision, fabric, and craftsmanship.</p>
+    </div>
+
+    <div class="gallery-grid anim-hidden">
+      <div class="gallery-item tall" onclick="openLightbox(this)">
+        <img src="https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=800&q=90" alt="Designed Blouse"/>
+        <div class="overlay"><div class="overlay-text">🪡<br>Designed Blouse</div></div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox(this)">
+        <img src="https://images.unsplash.com/photo-1617627143750-d86bc21e42bb?auto=format&fit=crop&w=800&q=90" alt="Embroidered Blouse"/>
+        <div class="overlay"><div class="overlay-text">🪡<br>Embroidered Blouse</div></div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox(this)">
+        <img src="https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?auto=format&fit=crop&w=800&q=80" alt="Clothing collection"/>
+        <div class="overlay"><div class="overlay-text">👗<br>Premium Collection</div></div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox(this)">
+        <img src="all%20iamges/uniform.png" alt="Stitched Uniform" style="object-position:top"/>
+        <div class="overlay"><div class="overlay-text">🎓<br>Stitched Uniform</div></div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox(this)">
+        <img src="all%20iamges/formal%20s%20nd%20p.png" alt="Formal Shirt and Pant" style="object-position:top"/>
+        <div class="overlay"><div class="overlay-text">👔<br>Formal Shirt &amp; Pant</div></div>
+      </div>
+      <div class="gallery-item wide" onclick="openLightbox(this)">
+        <img src="https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?auto=format&fit=crop&w=1200&q=90" alt="Kurtis and Lehenga"/>
+        <div class="overlay"><div class="overlay-text">✨<br>Kurtis &amp; Lehenga</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Lightbox -->
+<div id="lightbox" onclick="closeLightbox()">
+  <div onclick="event.stopPropagation()" style="position:relative;max-width:900px;width:100%">
+    <img id="lightbox-img" src="" alt=""/>
+    <button onclick="closeLightbox()" style="position:absolute;top:-1rem;right:-1rem;width:36px;height:36px;border-radius:50%;background:rgba(20,20,20,.9);border:1px solid rgba(201,168,76,.3);color:#fff;cursor:pointer;font-size:1rem">✕</button>
+  </div>
+</div>
+
+<!-- ══════════ REVIEWS ══════════ -->
+<section id="reviews" style="padding:6rem 0;background:linear-gradient(180deg,#0a0a0a 0%,#0f0f0f 100%)">
+  <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 20% 50%,rgba(201,168,76,.04) 0%,transparent 60%);pointer-events:none"></div>
+  <div style="max-width:1280px;margin:0 auto;padding:0 1.5rem;position:relative;z-index:1">
+
+    <div class="anim-hidden" style="text-align:center;margin-bottom:3.5rem">
+      <p style="font-size:.7rem;letter-spacing:.28em;text-transform:uppercase;color:#c9a84c;font-family:'Inter',sans-serif;font-weight:500;margin-bottom:.75rem">Client Stories</p>
+      <h2 style="font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,3rem);font-weight:700;color:#fff;margin-bottom:1rem">What Our <span class="gold-text">Customers Say</span></h2>
+      <div class="divider-gold" style="margin-bottom:1rem"></div>
+      <p style="color:#888;font-family:'Inter',sans-serif;max-width:500px;margin:0 auto;font-size:.85rem">Real stories from real customers who trust Mayura Tailor for their special garments.</p>
+    </div>
+
+    <!-- Overall rating bar -->
+    <div class="anim-hidden" style="display:flex;justify-content:center;margin-bottom:3rem">
+      <div class="glass" style="border-radius:1rem;padding:1.5rem 3rem;display:flex;align-items:center;gap:3rem;flex-wrap:wrap;justify-content:center">
+        <div style="text-align:center">
+          <div class="gold-text" style="font-family:'Playfair Display',serif;font-size:3rem;font-weight:700;line-height:1">5.0</div>
+          <div style="color:#c9a84c;font-size:.85rem;margin:.3rem 0">★★★★★</div>
+          <div style="color:#666;font-size:.65rem;font-family:'Inter',sans-serif">Overall Rating</div>
+        </div>
+        <div style="width:1px;height:60px;background:rgba(201,168,76,.15)"></div>
+        <div style="text-align:center">
+          <div style="font-family:'Playfair Display',serif;font-size:2rem;font-weight:700;color:#fff">500+</div>
+          <div style="color:#666;font-size:.65rem;font-family:'Inter',sans-serif;margin-top:.3rem">Happy Customers</div>
+        </div>
+        <div style="width:1px;height:60px;background:rgba(201,168,76,.15)"></div>
+        <div style="text-align:center">
+          <div style="font-family:'Playfair Display',serif;font-size:2rem;font-weight:700;color:#fff">10+</div>
+          <div style="color:#666;font-size:.65rem;font-family:'Inter',sans-serif;margin-top:.3rem">Years of Trust</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Review cards -->
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.2rem">
+
+      <div class="glass review-card anim-hidden" style="border-radius:1rem;padding:1.8rem;position:relative;overflow:hidden">
+        <div style="position:absolute;top:.8rem;right:1rem;font-family:'Playfair Display',serif;font-size:5rem;color:rgba(201,168,76,.05);line-height:1;user-select:none">"</div>
+        <div style="position:absolute;top:0;left:1.5rem;right:1.5rem;height:1px;background:linear-gradient(90deg,transparent,rgba(201,168,76,.25),transparent)"></div>
+        <div style="color:#c9a84c;font-size:.85rem;margin-bottom:.8rem">★★★★★</div>
+        <p style="color:#bbb;font-size:.8rem;font-family:'Inter',sans-serif;line-height:1.8;margin-bottom:1.2rem">"Exceptional quality! The blouse stitched here fits perfectly. The finishing is so clean. I have been coming here for years and they never disappoint!"</p>
+        <div style="height:1px;background:linear-gradient(90deg,transparent,rgba(201,168,76,.1),transparent);margin-bottom:1rem"></div>
+        <div style="display:flex;align-items:center;gap:.8rem">
+          <div style="width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#c9a84c,#8b7355);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-weight:700;color:#0a0a0a;flex-shrink:0">P</div>
+          <div><div style="color:#fff;font-size:.8rem;font-family:'Inter',sans-serif;font-weight:600">Priya Shetty</div><div style="color:#666;font-size:.65rem;font-family:'Inter',sans-serif">Regular Customer · Udupi</div></div>
+        </div>
+      </div>
+
+      <div class="glass review-card anim-hidden" style="border-radius:1rem;padding:1.8rem;position:relative;overflow:hidden;animation-delay:.1s">
+        <div style="position:absolute;top:.8rem;right:1rem;font-family:'Playfair Display',serif;font-size:5rem;color:rgba(201,168,76,.05);line-height:1;user-select:none">"</div>
+        <div style="position:absolute;top:0;left:1.5rem;right:1.5rem;height:1px;background:linear-gradient(90deg,transparent,rgba(201,168,76,.25),transparent)"></div>
+        <div style="color:#c9a84c;font-size:.85rem;margin-bottom:.8rem">★★★★★</div>
+        <p style="color:#bbb;font-size:.8rem;font-family:'Inter',sans-serif;line-height:1.8;margin-bottom:1.2rem">"Got my formal shirts and trousers stitched here. The attention to detail is incredible. Perfect measurements, great fabric suggestions, delivered on time!"</p>
+        <div style="height:1px;background:linear-gradient(90deg,transparent,rgba(201,168,76,.1),transparent);margin-bottom:1rem"></div>
+        <div style="display:flex;align-items:center;gap:.8rem">
+          <div style="width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#c9a84c,#6b5d3f);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-weight:700;color:#0a0a0a;flex-shrink:0">R</div>
+          <div><div style="color:#fff;font-size:.8rem;font-family:'Inter',sans-serif;font-weight:600">Ravi Kumar</div><div style="color:#666;font-size:.65rem;font-family:'Inter',sans-serif">Business Professional · Manipal</div></div>
+        </div>
+      </div>
+
+      <div class="glass review-card anim-hidden" style="border-radius:1rem;padding:1.8rem;position:relative;overflow:hidden;animation-delay:.2s">
+        <div style="position:absolute;top:.8rem;right:1rem;font-family:'Playfair Display',serif;font-size:5rem;color:rgba(201,168,76,.05);line-height:1;user-select:none">"</div>
+        <div style="position:absolute;top:0;left:1.5rem;right:1.5rem;height:1px;background:linear-gradient(90deg,transparent,rgba(201,168,76,.25),transparent)"></div>
+        <div style="color:#c9a84c;font-size:.85rem;margin-bottom:.8rem">★★★★★</div>
+        <p style="color:#bbb;font-size:.8rem;font-family:'Inter',sans-serif;line-height:1.8;margin-bottom:1.2rem">"My chudidar set turned out absolutely beautiful! The stitching quality is top-notch. The owner is professional and understands exactly what you want."</p>
+        <div style="height:1px;background:linear-gradient(90deg,transparent,rgba(201,168,76,.1),transparent);margin-bottom:1rem"></div>
+        <div style="display:flex;align-items:center;gap:.8rem">
+          <div style="width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#c9a84c,#7a6b4f);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-weight:700;color:#0a0a0a;flex-shrink:0">A</div>
+          <div><div style="color:#fff;font-size:.8rem;font-family:'Inter',sans-serif;font-weight:600">Anitha Nayak</div><div style="color:#666;font-size:.65rem;font-family:'Inter',sans-serif">Fashion Enthusiast · Kundapura</div></div>
+        </div>
+      </div>
+
+      <div class="glass review-card anim-hidden" style="border-radius:1rem;padding:1.8rem;position:relative;overflow:hidden;animation-delay:.3s">
+        <div style="position:absolute;top:.8rem;right:1rem;font-family:'Playfair Display',serif;font-size:5rem;color:rgba(201,168,76,.05);line-height:1;user-select:none">"</div>
+        <div style="position:absolute;top:0;left:1.5rem;right:1.5rem;height:1px;background:linear-gradient(90deg,transparent,rgba(201,168,76,.25),transparent)"></div>
+        <div style="color:#c9a84c;font-size:.85rem;margin-bottom:.8rem">★★★★★</div>
+        <p style="color:#bbb;font-size:.8rem;font-family:'Inter',sans-serif;line-height:1.8;margin-bottom:1.2rem">"Ordered school uniforms in bulk. Mayura Tailor delivered excellent quality within the deadline. All measurements were perfect. Great service at fair prices!"</p>
+        <div style="height:1px;background:linear-gradient(90deg,transparent,rgba(201,168,76,.1),transparent);margin-bottom:1rem"></div>
+        <div style="display:flex;align-items:center;gap:.8rem">
+          <div style="width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#c9a84c,#5a4d33);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-weight:700;color:#0a0a0a;flex-shrink:0">M</div>
+          <div><div style="color:#fff;font-size:.8rem;font-family:'Inter',sans-serif;font-weight:600">Mohan Gowda</div><div style="color:#666;font-size:.65rem;font-family:'Inter',sans-serif">School Principal · Brahmavara</div></div>
+        </div>
+      </div>
+
+      <div class="glass review-card anim-hidden" style="border-radius:1rem;padding:1.8rem;position:relative;overflow:hidden;animation-delay:.4s">
+        <div style="position:absolute;top:.8rem;right:1rem;font-family:'Playfair Display',serif;font-size:5rem;color:rgba(201,168,76,.05);line-height:1;user-select:none">"</div>
+        <div style="position:absolute;top:0;left:1.5rem;right:1.5rem;height:1px;background:linear-gradient(90deg,transparent,rgba(201,168,76,.25),transparent)"></div>
+        <div style="color:#c9a84c;font-size:.85rem;margin-bottom:.8rem">★★★★★</div>
+        <p style="color:#bbb;font-size:.8rem;font-family:'Inter',sans-serif;line-height:1.8;margin-bottom:1.2rem">"The silk blouse stitched here is a masterpiece. The intricate work, the perfect fit, smooth finishing — everything is just perfect. I get so many compliments!"</p>
+        <div style="height:1px;background:linear-gradient(90deg,transparent,rgba(201,168,76,.1),transparent);margin-bottom:1rem"></div>
+        <div style="display:flex;align-items:center;gap:.8rem">
+          <div style="width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#c9a84c,#9a8660);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-weight:700;color:#0a0a0a;flex-shrink:0">L</div>
+          <div><div style="color:#fff;font-size:.8rem;font-family:'Inter',sans-serif;font-weight:600">Lakshmi Bhat</div><div style="color:#666;font-size:.65rem;font-family:'Inter',sans-serif">Homemaker · Udupi</div></div>
+        </div>
+      </div>
+
+      <!-- CTA card -->
+      <div class="anim-hidden" style="border-radius:1rem;padding:1.8rem;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;background:linear-gradient(135deg,rgba(201,168,76,.08),rgba(201,168,76,.03));border:1px solid rgba(201,168,76,.2);animation-delay:.5s">
+        <div style="font-size:2rem;margin-bottom:1rem">🌟</div>
+        <h3 class="gold-text" style="font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:600;margin-bottom:.5rem">Join Our Happy Customers</h3>
+        <p style="color:#777;font-size:.75rem;font-family:'Inter',sans-serif;line-height:1.7;margin-bottom:1.2rem">Experience premium tailoring and see why hundreds trust Mayura Tailor.</p>
+        <button onclick="openWA()" class="btn-gold" style="padding:.7rem 1.5rem;border-radius:999px;font-size:.75rem;font-family:'Inter',sans-serif;width:100%">Book via WhatsApp</button>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ CONTACT ══════════ -->
+<section id="contact" style="padding:6rem 0;background:linear-gradient(180deg,#0f0f0f 0%,#0a0a0a 100%)">
+  <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 50% 100%,rgba(201,168,76,.05) 0%,transparent 50%);pointer-events:none"></div>
+  <div style="max-width:1280px;margin:0 auto;padding:0 1.5rem;position:relative;z-index:1">
+
+    <div class="anim-hidden" style="text-align:center;margin-bottom:3.5rem">
+      <p style="font-size:.7rem;letter-spacing:.28em;text-transform:uppercase;color:#c9a84c;font-family:'Inter',sans-serif;font-weight:500;margin-bottom:.75rem">Get In Touch</p>
+      <h2 style="font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,3rem);font-weight:700;color:#fff;margin-bottom:1rem">Visit <span class="gold-text">Mayura Tailor</span></h2>
+      <div class="divider-gold" style="margin-bottom:1rem"></div>
+      <p style="color:#888;font-family:'Inter',sans-serif;max-width:500px;margin:0 auto;font-size:.85rem;line-height:1.8">We'd love to hear from you. Walk in or reach out — we're always ready to create your perfect garment.</p>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start" class="contact-grid">
+
+      <!-- Left: Info -->
+      <div class="anim-hidden">
+        <!-- Info cards -->
+        <div style="display:flex;flex-direction:column;gap:1rem;margin-bottom:2rem">
+
+          <div class="glass" style="border-radius:1rem;padding:1.3rem 1.5rem;display:flex;gap:1rem;align-items:flex-start">
+            <div style="width:44px;height:44px;border-radius:.75rem;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.2);display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0">📍</div>
+            <div>
+              <p style="font-size:.6rem;letter-spacing:.25em;color:#c9a84c;text-transform:uppercase;font-family:'Inter',sans-serif;font-weight:500;margin-bottom:.3rem">Location</p>
+              <p style="color:#ccc;font-size:.85rem;font-family:'Inter',sans-serif;line-height:1.7">Hirgana, Mururu, Udupi,<br>Karnataka — 576 101</p>
+            </div>
+          </div>
+
+          <a href="tel:+918147956448" class="glass" style="border-radius:1rem;padding:1.3rem 1.5rem;display:flex;gap:1rem;align-items:flex-start;text-decoration:none">
+            <div style="width:44px;height:44px;border-radius:.75rem;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.2);display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0">📞</div>
+            <div>
+              <p style="font-size:.6rem;letter-spacing:.25em;color:#c9a84c;text-transform:uppercase;font-family:'Inter',sans-serif;font-weight:500;margin-bottom:.3rem">Phone</p>
+              <p style="color:#ccc;font-size:.85rem;font-family:'Inter',sans-serif">+91 81479 56448</p>
+              <p style="color:#555;font-size:.7rem;font-family:'Inter',sans-serif;margin-top:.1rem">Click to call directly</p>
+            </div>
+          </a>
+
+          <div class="glass" style="border-radius:1rem;padding:1.3rem 1.5rem;display:flex;gap:1rem;align-items:flex-start">
+            <div style="width:44px;height:44px;border-radius:.75rem;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.2);display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0">🕐</div>
+            <div>
+              <p style="font-size:.6rem;letter-spacing:.25em;color:#c9a84c;text-transform:uppercase;font-family:'Inter',sans-serif;font-weight:500;margin-bottom:.3rem">Opening Hours</p>
+              <p style="color:#ccc;font-size:.85rem;font-family:'Inter',sans-serif;line-height:1.7">Sunday – Saturday: 9:00 AM – 8:30 PM<br><span style="color:#c9a84c;font-size:.75rem">Open All 7 Days</span></p>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Action buttons -->
+        <div style="display:flex;gap:.8rem;flex-wrap:wrap;margin-bottom:1.5rem">
+          <button onclick="openWA()" style="flex:1;min-width:160px;display:flex;align-items:center;justify-content:center;gap:.6rem;padding:1rem 1.5rem;border-radius:.9rem;background:linear-gradient(135deg,#25D366,#128C7E);border:none;color:#fff;font-family:'Inter',sans-serif;font-weight:600;font-size:.85rem;cursor:pointer;transition:all .3s ease;box-shadow:0 4px 20px rgba(37,211,102,.25)" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='none'">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            WhatsApp Us
+          </button>
+          <button onclick="window.location.href='tel:+918147956448'" class="btn-outline" style="flex:1;min-width:140px;padding:1rem 1.5rem;border-radius:.9rem;font-family:'Inter',sans-serif;font-size:.85rem">📞 Call Now</button>
+        </div>
+
+        <!-- Social -->
+        <div style="display:flex;align-items:center;gap:.8rem">
+          <span style="color:#444;font-size:.65rem;font-family:'Inter',sans-serif;letter-spacing:.2em;text-transform:uppercase">Follow Us</span>
+          <div style="flex:1;height:1px;background:rgba(201,168,76,.08)"></div>
+          <a href="#" style="width:36px;height:36px;border-radius:50%;border:1px solid rgba(201,168,76,.15);display:flex;align-items:center;justify-content:center;color:#888;text-decoration:none;font-size:.85rem;transition:all .3s" onmouseover="this.style.color='#c9a84c';this.style.borderColor='rgba(201,168,76,.4)'" onmouseout="this.style.color='#888';this.style.borderColor='rgba(201,168,76,.15)'">📷</a>
+          <a href="#" style="width:36px;height:36px;border-radius:50%;border:1px solid rgba(201,168,76,.15);display:flex;align-items:center;justify-content:center;color:#888;text-decoration:none;font-size:.85rem;transition:all .3s" onmouseover="this.style.color='#c9a84c';this.style.borderColor='rgba(201,168,76,.4)'" onmouseout="this.style.color='#888';this.style.borderColor='rgba(201,168,76,.15)'">👍</a>
+        </div>
+      </div>
+
+      <!-- Right: Map -->
+      <div class="anim-hidden" style="animation-delay:.15s;position:relative;padding-bottom:1.5rem">
+        <div style="border-radius:1rem;overflow:hidden;border:1px solid rgba(201,168,76,.2);box-shadow:0 20px 60px rgba(0,0,0,.5)">
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d62195.89!2d74.7388!3d13.3409!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bbcbbf2b54f6f89%3A0x3de7e4d89b0e4f5a!2sUdupi%2C+Karnataka!5e0!3m2!1sen!2sin!4v1" width="100%" height="360" style="border:0;display:block;filter:grayscale(.85) invert(.9) contrast(.85) brightness(.45)" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Mayura Tailor Location"></iframe>
+        </div>
+        <!-- Location label -->
+        <div class="glass" style="position:absolute;bottom:0;left:1rem;right:1rem;border-radius:.85rem;padding:1rem 1.2rem;display:flex;align-items:center;gap:.9rem">
+          <div style="width:36px;height:36px;border-radius:.6rem;background:#c9a84c;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0">📍</div>
+          <div style="flex:1">
+            <p style="color:#fff;font-size:.8rem;font-family:'Inter',sans-serif;font-weight:600">Mayura Tailor</p>
+            <p style="color:#888;font-size:.65rem;font-family:'Inter',sans-serif">Hirgana, Mururu, Udupi, Karnataka</p>
+          </div>
+          <a href="https://maps.google.com/?q=Udupi,Karnataka" target="_blank" style="color:#c9a84c;text-decoration:none;font-size:.75rem;font-family:'Inter',sans-serif;white-space:nowrap">Open →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ FOOTER ══════════ -->
+<footer style="background:#060606;border-top:1px solid rgba(201,168,76,.08);position:relative;overflow:hidden">
+  <div style="height:1px;background:linear-gradient(90deg,transparent,#c9a84c,transparent)"></div>
+
+  <div style="max-width:1280px;margin:0 auto;padding:3.5rem 1.5rem 2rem">
+    <div style="display:grid;grid-template-columns:1.5fr 1fr 1fr 1.2fr;gap:2.5rem;margin-bottom:3rem" class="footer-grid">
+
+      <!-- Brand -->
+      <div>
+        <div style="display:flex;align-items:center;gap:.75rem;margin-bottom:1.2rem">
+          <svg width="40" height="40" viewBox="0 0 100 100" fill="none">
+            <circle cx="50" cy="50" r="48" stroke="url(#ftG)" stroke-width="2" fill="rgba(201,168,76,.04)"/>
+            <path d="M50 18 L54 44 L50 50 L46 44 Z" fill="url(#ftG)"/>
+            <ellipse cx="50" cy="18" rx="4" ry="5" fill="url(#ftG)"/>
+            <path d="M48 21 L52 21" stroke="#0a0a0a" stroke-width="2"/>
+            <path d="M50 50 Q65 56 60 71 Q55 81 50 75" stroke="url(#ftG)" stroke-width="2" fill="none"/>
+            <defs><linearGradient id="ftG" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#c9a84c"/><stop offset="50%" stop-color="#f0dfa0"/><stop offset="100%" stop-color="#c9a84c"/></linearGradient></defs>
+          </svg>
+          <div>
+            <div class="gold-text" style="font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:700;line-height:1.1">Mayura</div>
+            <div style="font-size:.55rem;letter-spacing:.35em;color:#555;text-transform:uppercase;font-family:'Inter',sans-serif">Tailor</div>
+          </div>
+        </div>
+        <p style="color:#555;font-size:.78rem;font-family:'Inter',sans-serif;line-height:1.8;margin-bottom:1.5rem">Premium tailoring services in Udupi, Karnataka. Crafting garments with passion, precision, and commitment to perfection.</p>
+        <div style="display:flex;gap:.6rem">
+          <a href="#" style="width:34px;height:34px;border-radius:50%;border:1px solid rgba(201,168,76,.15);display:flex;align-items:center;justify-content:center;color:#666;text-decoration:none;font-size:.75rem;transition:all .3s" onmouseover="this.style.color='#c9a84c'" onmouseout="this.style.color='#666'">📷</a>
+          <a href="#" style="width:34px;height:34px;border-radius:50%;border:1px solid rgba(201,168,76,.15);display:flex;align-items:center;justify-content:center;color:#666;text-decoration:none;font-size:.75rem;transition:all .3s" onmouseover="this.style.color='#c9a84c'" onmouseout="this.style.color='#666'">👍</a>
+          <a href="#" style="width:34px;height:34px;border-radius:50%;border:1px solid rgba(201,168,76,.15);display:flex;align-items:center;justify-content:center;color:#666;text-decoration:none;font-size:.75rem;transition:all .3s" onmouseover="this.style.color='#c9a84c'" onmouseout="this.style.color='#666'">🐦</a>
+        </div>
+      </div>
+
+      <!-- Quick links -->
+      <div>
+        <h4 style="color:#fff;font-size:.75rem;font-family:'Inter',sans-serif;font-weight:600;letter-spacing:.15em;text-transform:uppercase;margin-bottom:1.2rem;display:flex;align-items:center;gap:.5rem"><span style="width:20px;height:1px;background:#c9a84c;display:inline-block"></span>Quick Links</h4>
+        <div style="display:flex;flex-direction:column;gap:.7rem">
+          <a href="#home" onclick="scrollTo_('#home');return false" style="color:#666;text-decoration:none;font-size:.78rem;font-family:'Inter',sans-serif;transition:color .2s" onmouseover="this.style.color='#c9a84c'" onmouseout="this.style.color='#666'">Home</a>
+          <a href="#about" onclick="scrollTo_('#about');return false" style="color:#666;text-decoration:none;font-size:.78rem;font-family:'Inter',sans-serif;transition:color .2s" onmouseover="this.style.color='#c9a84c'" onmouseout="this.style.color='#666'">About Us</a>
+          <a href="#services" onclick="scrollTo_('#services');return false" style="color:#666;text-decoration:none;font-size:.78rem;font-family:'Inter',sans-serif;transition:color .2s" onmouseover="this.style.color='#c9a84c'" onmouseout="this.style.color='#666'">Services</a>
+          <a href="#gallery" onclick="scrollTo_('#gallery');return false" style="color:#666;text-decoration:none;font-size:.78rem;font-family:'Inter',sans-serif;transition:color .2s" onmouseover="this.style.color='#c9a84c'" onmouseout="this.style.color='#666'">Gallery</a>
+          <a href="#reviews" onclick="scrollTo_('#reviews');return false" style="color:#666;text-decoration:none;font-size:.78rem;font-family:'Inter',sans-serif;transition:color .2s" onmouseover="this.style.color='#c9a84c'" onmouseout="this.style.color='#666'">Reviews</a>
+          <a href="#contact" onclick="scrollTo_('#contact');return false" style="color:#666;text-decoration:none;font-size:.78rem;font-family:'Inter',sans-serif;transition:color .2s" onmouseover="this.style.color='#c9a84c'" onmouseout="this.style.color='#666'">Contact</a>
+        </div>
+      </div>
+
+      <!-- Services -->
+      <div>
+        <h4 style="color:#fff;font-size:.75rem;font-family:'Inter',sans-serif;font-weight:600;letter-spacing:.15em;text-transform:uppercase;margin-bottom:1.2rem;display:flex;align-items:center;gap:.5rem"><span style="width:20px;height:1px;background:#c9a84c;display:inline-block"></span>Services</h4>
+        <div style="display:flex;flex-direction:column;gap:.7rem">
+          <span style="color:#666;font-size:.78rem;font-family:'Inter',sans-serif">Custom Stitching</span>
+          <span style="color:#666;font-size:.78rem;font-family:'Inter',sans-serif">Gents Tailoring</span>
+          <span style="color:#666;font-size:.78rem;font-family:'Inter',sans-serif">Ladies Tailoring</span>
+          <span style="color:#666;font-size:.78rem;font-family:'Inter',sans-serif">Blouse Stitching</span>
+          <span style="color:#666;font-size:.78rem;font-family:'Inter',sans-serif">Chudidar Stitching</span>
+          <span style="color:#666;font-size:.78rem;font-family:'Inter',sans-serif">Uniform Stitching</span>
+        </div>
+      </div>
+
+      <!-- Contact -->
+      <div>
+        <h4 style="color:#fff;font-size:.75rem;font-family:'Inter',sans-serif;font-weight:600;letter-spacing:.15em;text-transform:uppercase;margin-bottom:1.2rem;display:flex;align-items:center;gap:.5rem"><span style="width:20px;height:1px;background:#c9a84c;display:inline-block"></span>Contact</h4>
+        <div style="display:flex;flex-direction:column;gap:.9rem">
+          <div style="display:flex;gap:.6rem;align-items:flex-start">
+            <span style="color:#c9a84c;margin-top:.1rem;font-size:.85rem">📍</span>
+            <p style="color:#666;font-size:.75rem;font-family:'Inter',sans-serif;line-height:1.7">Hirgana, Mururu, Udupi,<br>Karnataka — 576 101</p>
+          </div>
+          <div style="display:flex;gap:.6rem">
+            <span style="color:#c9a84c;font-size:.85rem">📞</span>
+            <a href="tel:+918147956448" style="color:#666;text-decoration:none;font-size:.75rem;font-family:'Inter',sans-serif">+91 81479 56448</a>
+          </div>
+          <div style="display:flex;gap:.6rem;align-items:flex-start">
+            <span style="color:#c9a84c;font-size:.85rem">🕐</span>
+            <p style="color:#666;font-size:.75rem;font-family:'Inter',sans-serif;line-height:1.7">Sun – Sat: 9:00 AM – 8:30 PM<br><span style="color:#c9a84c">Open All 7 Days</span></p>
+          </div>
+        </div>
+        <a href="https://wa.me/918496879018" target="_blank" style="display:inline-flex;align-items:center;gap:.5rem;margin-top:1.2rem;padding:.6rem 1.2rem;border-radius:999px;background:linear-gradient(135deg,#25D366,#128C7E);color:#fff;font-size:.72rem;font-family:'Inter',sans-serif;font-weight:600;text-decoration:none">
+          <svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Chat on WhatsApp
+        </a>
+      </div>
+    </div>
+
+    <!-- Divider -->
+    <div style="height:1px;background:linear-gradient(90deg,transparent,rgba(201,168,76,.12),transparent);margin-bottom:1.5rem"></div>
+
+    <!-- Bottom -->
+    <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.8rem">
+      <p style="color:#444;font-size:.7rem;font-family:'Inter',sans-serif">© 2025 <span style="color:rgba(201,168,76,.7)">Mayura Tailor</span>. All rights reserved. · Hirgana, Mururu, Udupi, Karnataka</p>
+      <p style="color:#333;font-size:.7rem;font-family:'Inter',sans-serif">Crafted with ♥ for premium style</p>
+    </div>
+  </div>
+</footer>
+
+<!-- ══════════ FLOATING WA BUTTON ══════════ -->
+<div id="wa-tooltip">
+  <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.3rem">
+    <div style="width:8px;height:8px;border-radius:50%;background:#25D366;animation:pulse-dot 1.5s infinite"></div>
+    <span style="color:#fff;font-size:.75rem;font-family:'Inter',sans-serif;font-weight:600">Mayura Tailor</span>
+    <button onclick="document.getElementById('wa-tooltip').classList.remove('show')" style="margin-left:auto;background:transparent;border:none;color:#555;cursor:pointer;font-size:.75rem;line-height:1">✕</button>
+  </div>
+  <p style="color:#999;font-size:.72rem;font-family:'Inter',sans-serif;line-height:1.6">👋 Hi! Need tailoring? Chat with us on WhatsApp — we'd love to help!</p>
+  <button onclick="openWA()" style="margin-top:.5rem;width:100%;padding:.5rem;border-radius:.6rem;background:linear-gradient(135deg,#25D366,#128C7E);border:none;color:#fff;font-size:.72rem;font-family:'Inter',sans-serif;font-weight:600;cursor:pointer">Start Chat →</button>
+</div>
+<button id="wa-btn" onclick="openWA()">
+  <svg viewBox="0 0 24 24" width="26" height="26" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</button>
+
+<!-- ══════════ RESPONSIVE STYLES ══════════ -->
+<style>
+@media(max-width:900px){
+  .about-grid{grid-template-columns:1fr!important}
+  .contact-grid{grid-template-columns:1fr!important}
+  .footer-grid{grid-template-columns:1fr 1fr!important}
+}
+@media(max-width:600px){
+  .hidden-mobile{display:none!important}
+  #hamburger{display:flex!important}
+  .footer-grid{grid-template-columns:1fr!important}
+  .about-grid .anim-hidden:first-child .absolute{display:none}
+}
+</style>
+
+<!-- ══════════ JAVASCRIPT ══════════ -->
+<script>
+// ── Loader ──────────────────────────────────────────────
+const bar = document.getElementById('loader-bar')
+const pct = document.getElementById('loader-pct')
+const loader = document.getElementById('loader')
+let prog = 0
+const loadInterval = setInterval(()=>{
+  prog = Math.min(prog + Math.random()*14, 100)
+  bar.style.width = prog+'%'
+  pct.textContent = Math.round(prog)+'%'
+  if(prog>=100){
+    clearInterval(loadInterval)
+    setTimeout(()=>{ loader.classList.add('hidden') }, 400)
+  }
+},120)
+
+// ── Helpers ──────────────────────────────────────────────
+function scrollTo_(sel){ document.querySelector(sel)?.scrollIntoView({behavior:'smooth'}) }
+function toggleMenu(){
+  const m = document.getElementById('mobile-menu')
+  m.classList.toggle('open')
+  document.body.style.overflow = m.classList.contains('open') ? 'hidden' : ''
+}
+function openWA(){
+  const msg = encodeURIComponent("Hello! I'd like to enquire about tailoring services at Mayura Tailor.")
+  window.open(`https://wa.me/918496879018?text=${msg}`, '_blank')
+}
+
+// ── Navbar scroll ──────────────────────────────────────────────
+window.addEventListener('scroll', ()=>{
+  const nav = document.getElementById('navbar')
+  nav.classList.toggle('scrolled', window.scrollY > 60)
+
+  // Parallax hero bg
+  const heroBg = document.getElementById('hero-bg')
+  if(heroBg) heroBg.style.transform = `translateY(${window.scrollY * 0.35}px)`
+}, {passive:true})
+
+// ── Intersection Observer for scroll animations ──────────────────
+const observer = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){ e.target.classList.add('anim-visible') }
+  })
+}, {threshold:0.1, rootMargin:'-60px'})
+document.querySelectorAll('.anim-hidden').forEach(el=>observer.observe(el))
+
+// ── Animated tagline ──────────────────────────────────────────────
+const taglines = ['Perfect Fit.','Premium Stitching.','Timeless Style.']
+let tIdx = 0
+const tagWrap = document.getElementById('tagline-wrap')
+function showTagline(){
+  tagWrap.style.opacity='0'
+  tagWrap.style.transform='translateY(20px)'
+  setTimeout(()=>{
+    tagWrap.textContent = taglines[tIdx]
+    tagWrap.style.transition='all .5s ease'
+    tagWrap.style.opacity='1'
+    tagWrap.style.transform='translateY(0)'
+    tIdx=(tIdx+1)%taglines.length
+  },300)
+}
+showTagline()
+setInterval(showTagline, 2500)
+
+// ── Gallery lightbox ──────────────────────────────────────────────
+function openLightbox(el){
+  const img = el.querySelector('img')
+  document.getElementById('lightbox-img').src = img.src
+  document.getElementById('lightbox').classList.add('open')
+  document.body.style.overflow='hidden'
+}
+function closeLightbox(){
+  document.getElementById('lightbox').classList.remove('open')
+  document.body.style.overflow=''
+}
+document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeLightbox() })
+
+// ── WhatsApp floating btn ──────────────────────────────────────────
+setTimeout(()=>{
+  document.getElementById('wa-btn').classList.add('show')
+}, 3000)
+setTimeout(()=>{
+  document.getElementById('wa-tooltip').classList.add('show')
+}, 5000)
+setTimeout(()=>{
+  document.getElementById('wa-tooltip').classList.remove('show')
+}, 9000)
+</script>
+</body>
+</html>
